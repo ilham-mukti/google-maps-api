@@ -1,8 +1,8 @@
-import requests
-import json
-from urllib.parse import urlencode
-import pandas as pd
 import time
+import json
+import requests
+import pandas as pd
+from urllib.parse import urlencode
 
 class GooglePlaces:
 	def __init__(self, list_kelurahan, kecamatan, kota, api_key):
@@ -60,10 +60,10 @@ class GooglePlaces:
 		else:
 			page+=1
 			next_page_token = result['next_page_token']
-			params ={
-			'pagetoken': next_page_token,
-			'key': api_key
-			}
+			params = {
+				'pagetoken': next_page_token,
+				'key': api_key
+				}
 			self.parse_places(params, page)
 
 	def request_data(self, params, type_search='geocode', sleep=0):
@@ -74,7 +74,7 @@ class GooglePlaces:
 		result = requests.get(url, time.sleep(sleep)).json()
 		return result
 
-api_key = 'xxxxxx' # api key
+api_key = 'xxxxx' # Api Key
 list_kelurahan= ['Tanjung Barat', 'Jagakarsa', 'Cipedak', 'Lenteng Agung', 'Srengseng Sawah', 'Ciganjur']
 kecamatan = 'Jagakarsa'
 kota = "Jakarta Selatan"
