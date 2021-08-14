@@ -58,11 +58,11 @@ class GooglePlaces:
 			print(f"{self.count}. {self.nama_kelurahan} {name} {lat}, {lng}")
 			self.count+=1
     
-      my_dict['nama_kelurahan'].append(self.nama_kelurahan)
-      my_dict['nama_tempat'].append(name)
-      my_dict['type_tempat'].append(self.type)
-      my_dict['rating'].append(rating)
-      my_dict['user_ratings_total'].append(user_ratings_total)
+		      my_dict['nama_kelurahan'].append(self.nama_kelurahan)
+		      my_dict['nama_tempat'].append(name)
+		      my_dict['type_tempat'].append(self.type)
+		      my_dict['rating'].append(rating)
+		      my_dict['user_ratings_total'].append(user_ratings_total)
 
 
 		print(page)
