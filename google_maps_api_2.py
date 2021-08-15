@@ -44,13 +44,13 @@ class GooglePlaces:
 		return df_kelurahan
 
 	def parse_places(self, params, page=0):
-    		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating': [], 'user_ratings_total': []}
+    	my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating': [], 'user_ratings_total': []}
 		result = self.request_data(params, type_search="nearbysearch", sleep=8)
 		for data in result['results']:
 			name = data['name']
 			vicinity = data['vicinity']
-      			rating = data['rating']
-      			user_ratings_total = data['user_ratings_total']
+      		rating = data['rating']
+      		user_ratings_total = data['user_ratings_total']
 			types = [type for type in data['types']]
 			location = [data['geometry']['location'][loc] for loc in data['geometry']['location']]
 			lat = location[0]
@@ -58,11 +58,11 @@ class GooglePlaces:
 			print(f"{self.count}. {self.nama_kelurahan} {name} {lat}, {lng}")
 			self.count+=1
     
-		      my_dict['nama_kelurahan'].append(self.nama_kelurahan)
-		      my_dict['nama_tempat'].append(name)
-		      my_dict['type_tempat'].append(self.type)
-		      my_dict['rating'].append(rating)
-		      my_dict['user_ratings_total'].append(user_ratings_total)
+			my_dict['nama_kelurahan'].append(self.nama_kelurahan)
+			my_dict['nama_tempat'].append(name)
+			my_dict['type_tempat'].append(self.type)
+			my_dict['rating'].append(rating)
+			my_dict['user_ratings_total'].append(user_ratings_total)
 
 
 		print(page)
