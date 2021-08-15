@@ -47,12 +47,15 @@ class GooglePlaces:
 	def parse_places(self, params, page=0):
 		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating_tempat': [], 'user_ratings_total': []}
 		result = self.request_data(params, type_search="nearbysearch", sleep=8)
+		print(result['results'][16])
 		for data in result['results']:
 			name = data['name']
 			rating_tempat = 0
-			rating_tempat = data['rating']
 			user_ratings_total = 0
-			user_ratings_total = data['user_ratings_total']
+			if("rating" in data.keys()):
+				rating_tempat = data['rating']
+			if("user_ratings_total" in data.keys()):
+				user_ratings_total = data['user_ratings_total']
 			vicinity = data['vicinity']
 			types = [type for type in data['types']]
 			location = [data['geometry']['location'][loc] for loc in data['geometry']['location']]
