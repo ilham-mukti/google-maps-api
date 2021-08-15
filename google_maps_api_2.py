@@ -17,9 +17,10 @@ class GooglePlaces:
 	def start(self):
 		df_kelurahan = self.extract_lat_lng()
 		for self.nama_kelurahan, self.latitude_kelurahan, self.longitude_kelurahan in zip(df_kelurahan.Kelurahan, df_kelurahan.Latitude, df_kelurahan.Longitude):
-			types = ['cafe', 'restaurant']
+			types = ['restaurant', 'cafe']
 			for self.type in types:
-				print(type)
+				print(f"{self.nama_kelurahan} -> {self.latitude_kelurahan},{self.longitude_kelurahan}")
+				print(self.type)
 				params = {
 					"location": f"{self.latitude_kelurahan},{self.longitude_kelurahan}",
 					"radius": self.radius,
@@ -44,26 +45,27 @@ class GooglePlaces:
 		return df_kelurahan
 
 	def parse_places(self, params, page=0):
-		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating': [], 'user_ratings_total': []}
+		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating_tempat': [], 'user_ratings_total': []}
 		result = self.request_data(params, type_search="nearbysearch", sleep=8)
 		for data in result['results']:
 			name = data['name']
-			vicinity = data['vicinity']
-			rating = data['rating']
+			rating_tempat = 0
+			rating_tempat = data['rating']
+			user_ratings_total = 0
 			user_ratings_total = data['user_ratings_total']
+			vicinity = data['vicinity']
 			types = [type for type in data['types']]
 			location = [data['geometry']['location'][loc] for loc in data['geometry']['location']]
 			lat = location[0]
 			lng = location[1]
-			print(f"{self.count}. {self.nama_kelurahan} {name} {lat}, {lng}")
+			print(f"{self.count}. {self.nama_kelurahan} {name} {lat}, {lng} -> {rating_tempat}")
 			self.count+=1
     
 			my_dict['nama_kelurahan'].append(self.nama_kelurahan)
 			my_dict['nama_tempat'].append(name)
 			my_dict['type_tempat'].append(self.type)
-			my_dict['rating'].append(rating)
+			my_dict['rating_tempat'].append(rating_tempat)
 			my_dict['user_ratings_total'].append(user_ratings_total)
-
 
 		print(page)
 		if(page==2):
@@ -73,7 +75,7 @@ class GooglePlaces:
 			next_page_token = result['next_page_token']
 			params = {
 				'pagetoken': next_page_token,
-				'key': api_key
+				'key': self.api_key
 				}
 			self.parse_places(params, page)
 
