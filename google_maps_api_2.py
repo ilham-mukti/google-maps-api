@@ -44,13 +44,13 @@ class GooglePlaces:
 		return df_kelurahan
 
 	def parse_places(self, params, page=0):
-    	my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating': [], 'user_ratings_total': []}
+		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating': [], 'user_ratings_total': []}
 		result = self.request_data(params, type_search="nearbysearch", sleep=8)
 		for data in result['results']:
 			name = data['name']
 			vicinity = data['vicinity']
-      		rating = data['rating']
-      		user_ratings_total = data['user_ratings_total']
+			rating = data['rating']
+			user_ratings_total = data['user_ratings_total']
 			types = [type for type in data['types']]
 			location = [data['geometry']['location'][loc] for loc in data['geometry']['location']]
 			lat = location[0]
@@ -85,15 +85,15 @@ class GooglePlaces:
 		result = requests.get(url, time.sleep(sleep)).json()
 		return result
 
-  	def save_to(self, dict_row):
-	    path_output = self.path+ "kecamatan_" +self.kecamatan+".csv"
-	    is_new = not os.path.isfile(path_output)
-	    rows = zip(*dict_row.values())
-	    modes = 'a'
-	    if is_new:
+	def save_to(self, dict_row):
+		path_output = self.path+ "kecamatan_" +self.kecamatan+".csv"
+		is_new = not os.path.isfile(path_output)
+		rows = zip(*dict_row.values())
+		modes = 'a'
+		if is_new:
 			os.makedirs(os.path.dirname(path_output), exist_ok=True)
 			modes = 'w'
-	    with open(path_output, mode=modes, newline='', encoding='utf-8') as csv_file:
+		with open(path_output, mode=modes, newline='', encoding='utf-8') as csv_file:
 			writer = csv.writer(csv_file)
 			if is_new:
 				writer.writerow(dict_row.keys())
