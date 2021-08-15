@@ -76,7 +76,7 @@ class GooglePlaces:
 			my_dict['alamat_tempat'].append(vicinity)
 
 		print(page)
-		if(page==2):
+		if('next_page_token' not in result.keys()):
 			self.save_to(my_dict)
 			print("##################### Selesai")
 		else:
