@@ -45,7 +45,7 @@ class GooglePlaces:
 		return df_kelurahan
 
 	def parse_places(self, params, page=0):
-		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating_tempat': [], 'user_ratings_total': []}
+		my_dict = {'nama_kelurahan': [], 'nama_tempat': [], 'type_tempat': [], 'rating_tempat': [], 'user_ratings_total': [], 'latitude': [], 'longitude': [], 'alamat_tempat': []}
 		result = self.request_data(params, type_search="nearbysearch", sleep=8)
 		print(result['results'][16])
 		for data in result['results']:
@@ -69,11 +69,16 @@ class GooglePlaces:
 			my_dict['type_tempat'].append(self.type)
 			my_dict['rating_tempat'].append(rating_tempat)
 			my_dict['user_ratings_total'].append(user_ratings_total)
+			my_dict['latitude'].append(lat)
+			my_dict['longitude'].append(lng)
+			my_dict['alamat_tempat'].append(vicinity)
 
 		print(page)
 		if(page==2):
+			self.save_to(my_dict)
 			print("##################### Selesai")
 		else:
+			self.save_to(my_dict)
 			page+=1
 			next_page_token = result['next_page_token']
 			params = {
