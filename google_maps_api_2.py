@@ -3,6 +3,8 @@ import json
 import requests
 import pandas as pd
 from urllib.parse import urlencode
+import csv
+import os.path
 
 class GooglePlaces:
 	def __init__(self, path, list_kelurahan, kecamatan, kota, api_key):
